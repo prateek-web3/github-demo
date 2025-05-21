@@ -30,9 +30,9 @@ describe('GET /', function() {
   });
 
   // Dummy test case that is intended to fail
-  it('should fail to demonstrate failing tests', () => {
-    // This expectation is intentionally incorrect
-    expect(false).toBe(true);
-  });
+  // it('should fail to demonstrate failing tests', () => {
+  //   // This expectation is intentionally incorrect
+  //   expect(false).toBe(true);
+  // });
 
 });
