@@ -29,9 +29,9 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: javascript
-        queries:
-          - security-extended
-          - secrets
+        queries: |
+          security-extended
+          secrets
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
