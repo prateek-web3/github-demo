@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 // Generic error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send('Something broke!!!');
 });
 
 // Remove app.listen from here to allow clean testing
