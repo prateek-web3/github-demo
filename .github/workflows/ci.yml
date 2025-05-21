@@ -29,15 +29,12 @@ jobs:
       run: npm test
 
     - name: GitHub Security Code Scan
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: javascript
-        queries: |
-          security-extended
-          secrets
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
 
     - name: Build Docker Image
       run: docker build -t my-docker-image:latest .
