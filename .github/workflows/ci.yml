@@ -40,10 +40,13 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
 
-    - name: Upload Code Quality Report
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: results/javascript.sarif
+    - name: Display CodeQL Report
+      run: |
+        if [ -f results/javascript.sarif ]; then
+          cat results/javascript.sarif
+        else
+          echo "CodeQL SARIF report not found."
+        fi
 
     - name: Build Docker Image
       run: docker build -t my-docker-image:latest .
