@@ -17,6 +17,5 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
+// Remove app.listen from here to allow clean testing
+module.exports = app;

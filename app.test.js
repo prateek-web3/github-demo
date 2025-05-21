@@ -1,5 +1,14 @@
 const request = require('supertest');
 const app = require('./app'); // Assuming your app.js exports the Express app instance
+let server;
+
+beforeAll((done) => {
+  server = app.listen(4000, done); // Use a different port for tests
+});
+
+afterAll((done) => {
+  server.close(done);
+});
 
 describe('GET /', function() {
   it('responds with "Hello, GitHub Demos!"', function(done) {
