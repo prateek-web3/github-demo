@@ -40,6 +40,11 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
 
+    - name: Upload Code Quality Report
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: results/javascript.sarif
+
     - name: Build Docker Image
       run: docker build -t my-docker-image:latest .
 
