@@ -59,3 +59,25 @@ jobs:
         exit-code: '0'
         ignore-unfixed: true
         vuln-type: 'os,library'
+
+  checklist-validation:
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR Checklist
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prBody = context.payload.pull_request.body || '';
+            const checklist = [
+              'QA check done',
+              'Security scan done',
+              'Environment updated',
+              'Release notification sent'
+            ];
+            const unchecked = checklist.filter(item => !prBody.match(new RegExp(`- \[x\] ${item}`, 'i')));
+            if (unchecked.length > 0) {
+              core.setFailed(`The following checklist items are not checked: ${unchecked.join(', ')}`);
+            } else {
+              core.info('All checklist items are checked.');
+            }
