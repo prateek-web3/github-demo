@@ -15,7 +15,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14' # Use the Node.js version your project requires
+        node-version: '18'
 
     - name: Install dependencies
       run: npm install
@@ -26,20 +26,22 @@ jobs:
     - name: GitHub Security Code Scan
       uses: github/codeql-action/init@v2
       with:
-        languages: javascript # Or the appropriate language for your project
-        queries: security-extended,#secrets
+        languages: javascript
+        queries:
+          - security-extended
+          - secrets
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
 
     - name: Build Docker Image
-      run: docker build -t my-docker-image . # Replace my-docker-image with your desired image name
+      run: docker build -t my-docker-image:latest .
 
     - name: Run Trivy
-      uses: aquasecurity/trivy-action@master # Use the latest version or a specific tag
+      uses: aquasecurity/trivy-action@0.12.0
       with:
-        image-ref: my-docker-image:latest # Replace my-docker-image with your image name
+        image-ref: my-docker-image:latest
         format: 'table'
-        exit-code: '0' # Set to a non-zero value to fail the CI on vulnerabilities
+        exit-code: '0'
         ignore-unfixed: true
         vuln-type: 'os,library'
